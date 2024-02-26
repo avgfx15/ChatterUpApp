@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from "./db/db.js";
+import userRouter from "./routes/userRoute.js";
 
 
 dotenv.config();
@@ -29,7 +30,9 @@ const io = new Server(server, {
     }
 })
 
-const port = process.env.PORT
+const port = process.env.PORT;
+
+app.use('/', userRouter)
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => {
