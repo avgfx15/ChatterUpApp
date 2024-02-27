@@ -26,9 +26,14 @@ var userSchema = new mongoose.Schema({
         required: true,
     },
     isOnline: {
-        type: boolean,
+        type: Boolean,
         default: false,
-    }
+    },
+    tokens: [{
+        token: {
+            type: String
+        }
+    }]
 }, { timestamps: true });
 
 //Export the model

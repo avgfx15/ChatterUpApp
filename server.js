@@ -3,6 +3,8 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from "path";
+import expressEjsLayouts from "express-ejs-layouts";
 import connectDB from "./db/db.js";
 import userRouter from "./routes/userRoute.js";
 
@@ -17,8 +19,9 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static("public"));
 
+app.use(expressEjsLayouts);
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set("views", path.resolve("views"));
 
 
 const server = http.createServer(app);
@@ -34,7 +37,7 @@ const port = process.env.PORT;
 
 app.use('/', userRouter)
 
-app.get('/', (req, res) => res.send('Hello World!'))
+// app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
     connectDB();

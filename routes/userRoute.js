@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import UserControllers from '../controllers/userControllers.js';
+import upload from '../middlewares/fileUploadMulter.js';
 
 const userRouter = express.Router();
 
@@ -11,9 +12,15 @@ userRouter.get('/', (req, res) => {
     userControllers.getLoginFormController(req, res)
 })
 
+
 // + User Login 
-userRouter.post('/', (req, res) => {
-    userControllers.userLoginController(req, res)
+userRouter.post('/', (req, res, next) => {
+    userControllers.userLoginController(req, res, next)
+})
+
+// @ GETUser Dashboard
+userRouter.get('/dashboard', (req, res) => {
+    userControllers.userDashboardController(req, res)
 })
 
 // @ GET Registration Form
@@ -22,8 +29,8 @@ userRouter.get('/register', (req, res) => {
 })
 
 // + User Registration
-userRouter.post('/register', (req, res) => {
-    userControllers.userRegisterationController(req, res)
+userRouter.post('/register', upload.single('profilePic'), (req, res, next) => {
+    userControllers.userRegisterationController(req, res, next)
 })
 
 // @ GET Login Form
