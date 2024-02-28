@@ -30,8 +30,22 @@ export default class UserControllers {
                     const token = await jwt.sign({ user: userLoggedIn }, jwtSecret, { expiresIn: '1h' })
                     await userExists.tokens.push({ token });
                     await userExists.save();
-                    res.redirect(200, '/dashboard')
-                    // res.render('dashboard')
+
+                    // res.cookie('jwt', token, { expiresIn: '1h' })
+
+                    res.cookie('jwtToken', token, {
+                        secure: true,
+                        httpOnly: false,
+                        sameSite: 'strict',
+                        maxAge: 7 * 24 * 60 * 60 * 1000
+                    });
+
+                    return res.redirect(200, '/dashboard')
+                    // res.writeHead(200, {
+                    //     'Location': '/dashboard'
+                    // });
+                    // res.end();
+
                 }
             }
         } catch (error) {
@@ -75,7 +89,35 @@ export default class UserControllers {
     userDashboardController = async (req, res) => {
         try {
 
-            res.render('dashboard', { user: req.user })
+            const token = req.cookies.jwtToken;
+            if (token) {
+
+                const jwtSecret = process.env.jwt_SECRET;
+                const payload = await jwt.verify(token, jwtSecret);
+                req = payload;
+
+                res.render('dashboard', { user: req.user })
+            } else {
+
+                res.writeHead(302, {
+                    'Location': '/'
+                });
+                res.end();
+            }
+        } catch (error) {
+            res.redirect('/', { message: error.message });
+        }
+    }
+
+    // @ GET User LoggedOut
+
+    userLogOutController = async (req, res) => {
+        try {
+            await res.clearCookie("kjwtTokeny");
+            res.writeHead(302, {
+                'Location': '/'
+            });
+            res.end();
         } catch (error) {
             res.redirect('/', { message: error.message });
         }

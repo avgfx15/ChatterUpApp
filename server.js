@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import path from "path";
 import expressEjsLayouts from "express-ejs-layouts";
 import connectDB from "./db/db.js";
+import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoute.js";
 
 
@@ -16,6 +17,8 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+
+app.use(cookieParser())
 
 app.use(express.static("public"));
 
