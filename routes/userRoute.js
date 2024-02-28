@@ -36,8 +36,8 @@ userRouter.post('/register', upload.single('profilePic'), (req, res, next) => {
 })
 
 // @ GET Login Form
-userRouter.get('/', (req, res) => {
-    userControllers.getLoginFormController(req, res)
+userRouter.get('/logout', userLoggedIn, (req, res) => {
+    userControllers.userLogOutController(req, res)
 })
 
 

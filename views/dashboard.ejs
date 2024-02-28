@@ -1,9 +1,34 @@
 <div class="container-fluid px-0">
     <div class="row flex-nowrap">
-        <div class="bg-dark col-md-2 min-vh-100">
-            <a href="" class="d-flex text-decoration-none align-items-center text-white py-2 fs-5">
-                <span class="fs-4 d-none d-sm-inline">StacoChat</span>
+        <div class="bg-dark col-md-2 min-vh-100  p-0">
+            <a href="/" class="d-flex text-decoration-none align-items-center text-white py-2 fs-5 ">
+                <span class="fs-4 d-none d-sm-inline px-3">
+                    <%= user.name %>
+                </span>
             </a>
+
+            <ul class="nav nav-pills flex-column pt-2 text-center">
+                <li class="nav-item px-0 ">
+                    <a class="nav-link active" href="#">
+                        <i class="fa-solid fa-house"></i> <span class="fs-5 d-none d-sm-inline text-white">
+                            Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">
+                        <i class="fs-5 fa fa-guage"></i><span
+                            class="fs-5 d-none d-sm-inline text-white">Dashboard</span>
+                    </a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                        <i class="fa-solid fa-right-from-bracket"></i> <span class="fs-5 d-none d-sm-inline text-white">
+                            Logout</span>
+                    </a>
+                </li>
+            </ul>
+
         </div>
     </div>
 </div>

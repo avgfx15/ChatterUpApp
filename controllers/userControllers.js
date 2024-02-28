@@ -41,11 +41,6 @@ export default class UserControllers {
                     });
 
                     return res.redirect(200, '/dashboard')
-                    // res.writeHead(200, {
-                    //     'Location': '/dashboard'
-                    // });
-                    // res.end();
-
                 }
             }
         } catch (error) {
@@ -113,11 +108,11 @@ export default class UserControllers {
 
     userLogOutController = async (req, res) => {
         try {
-            await res.clearCookie("kjwtTokeny");
+            res.clearCookie("jwtToken");
             res.writeHead(302, {
                 'Location': '/'
             });
-            res.end();
+            return res.end();
         } catch (error) {
             res.redirect('/', { message: error.message });
         }
