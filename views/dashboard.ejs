@@ -1,8 +1,10 @@
-<div class="container-fluid px-0">
+<div class="container-fluid px-0 dashboard">
     <div class="row flex-nowrap">
         <div class="bg-dark col-md-2 min-vh-100  p-0">
             <a href="/" class="d-flex text-decoration-none align-items-center text-white py-2 fs-5 ">
                 <span class="fs-4 d-none d-sm-inline px-3">
+                    <img src="<%= './uploads/'+user.profilePic %>" alt=""
+                        style="height:50px; width:50px; border-radius: 50%;">
                     <%= user.name %>
                 </span>
             </a>
@@ -14,21 +16,64 @@
                             Dashboard</span>
                     </a>
                 </li>
-
-                <!-- <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">
-                        <i class="fs-5 fa fa-guage"></i><span
-                            class="fs-5 d-none d-sm-inline text-white">Dashboard</span>
-                    </a>
-                </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">
-                        <i class="fa-solid fa-right-from-bracket"></i> <span class="fs-5 d-none d-sm-inline text-white">
+                    <a class="nav-link text-white" href="/logout">
+                        <i class="fa-solid fa-right-from-bracket "></i> <span
+                            class="fs-5 d-none d-sm-inline text-white">
                             Logout</span>
                     </a>
                 </li>
             </ul>
 
         </div>
+
+        <div class="bg-light col-md-2 min-vh-100  p-0 border border-end-1">
+            <a href="/" class="d-flex text-decoration-none align-items-center text-black py-2 fs-5 bg-warning ">
+                <span class="fs-4 d-none d-sm-inline px-3">
+                    <img src="<%= './uploads/'+user.profilePic %>" alt=""
+                        style="height:50px; width:50px; border-radius: 50%;">
+                    <%= user.name %>
+                </span>
+            </a>
+            <ul class="nav nav-pills flex-column pt-2 text-center">
+                <% if(users.length> 0 ) {
+                    for(var i=0; i<users.length; i++) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                <span class="fs-5 d-none d-sm-inline text-black">
+                                    <img src="<%= './uploads/'+users[i].profilePic %>" alt=""
+                                        style="height:50px; width:50px; border-radius: 50%;">
+                                    <%= users[i].name %>
+                                </span>
+                            </a>
+                        </li>
+                        <% } } %>
+            </ul>
+        </div>
+
+        <div class="bg-light col-md-8 min-vh-100  p-0 border border-end-1">
+            <a href="/" class="d-flex text-decoration-none align-items-center text-black py-2 fs-5 bg-warning ">
+                <span class="fs-4 d-none d-sm-inline px-3">
+                    <img src="<%= './uploads/STACODEV_LOGO_CIRCLE.png' %>"" alt=""
+                        style=" height:50px; width:50px; border-radius: 50%;">
+                    Chat Container
+                </span>
+            </a>
+            <div class="chatContainer">
+                <div class="chatBox">
+                    <div id="chatSection" class="chatContainer">
+                        <h1 class="heading">Chat Content</h1>
+                    </div>
+
+
+                    <form action="" id="chatForm">
+                        <input type="text" name="chatMessage" placeholder="Please type your chat message"
+                            id="chatMessage">
+                        <input type="submit" class="btn btn-primary" id="sendMessage" value="Send Message">
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

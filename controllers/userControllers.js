@@ -25,7 +25,7 @@ export default class UserControllers {
                 if (!comparePassword) {
                     res.render('login', { success: false, message: 'Invalid Credentials' })
                 } else {
-                    const userLoggedIn = await UserModel.findOne({ email: email }).select('name email mobile isOnline');
+                    const userLoggedIn = await UserModel.findOne({ email: email }).select('name email mobile profilePic isOnline');
                     const jwtSecret = process.env.jwt_SECRET;
                     const token = await jwt.sign({ user: userLoggedIn }, jwtSecret, { expiresIn: '1h' })
                     await userExists.tokens.push({ token });
@@ -91,16 +91,15 @@ export default class UserControllers {
                 const payload = await jwt.verify(token, jwtSecret);
                 req = payload;
 
-                res.render('dashboard', { user: req.user })
+                const loadUsers = await UserModel.find({ _id: { $nin: req.user._id } }).select('name email mobile profilePic')
+                console.log(req.user);
+                res.render('dashboard', { user: req.user, users: loadUsers })
             } else {
 
-                res.writeHead(302, {
-                    'Location': '/'
-                });
-                res.end();
+                res.send('User Not Authorized')
             }
         } catch (error) {
-            res.redirect('/', { message: error.message });
+            console.log(error.message);
         }
     }
 

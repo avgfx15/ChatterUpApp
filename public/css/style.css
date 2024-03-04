@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.dashboard {
+    height: 100vh;
+}
+
+.chatBox {
+
+    background-color: aquamarine;
+}
+
+.chatContainer {
+    height: 89vh;
+}
+
+.footer {
+    height: 70px;
+    background-color: black;
+}
