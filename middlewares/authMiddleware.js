@@ -11,7 +11,7 @@ export const userLoggedIn = async (req, res, next) => {
             next();
         } else {
             res.writeHead(302, {
-                'Location': '/'
+                'Location': '/login'
             });
             res.end();
         }

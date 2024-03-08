@@ -1,25 +1,26 @@
-<div class="container">
-    <h1 class="my-5 text-center">Login</h1>
+<%- include('menubar.ejs') %>
+    <div class="container">
+        <h1 class="my-5 text-center">Login</h1>
 
-    <% if(typeof message !=='undefined' ) { %>
-        <div class="alert alert-danger" role="alert">
-            <p>
-                <%= message %>
-            </p>
-        </div>
-        <% } %>
+        <% if(typeof message !=='undefined' ) { %>
+            <div class="alert alert-danger" role="alert">
+                <p>
+                    <%= message %>
+                </p>
+            </div>
+            <% } %>
 
-            <form action="/" method="post" class="p-5">
-                <div class="form-group">
-                    <label for="des">Email</label>
-                    <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                        placeholder="Enter Product Description" />
-                </div>
-                <div class="form-group">
-                    <label for="price">Password</label>
-                    <input type="text" name="password" class="form-control" id="password" aria-describedby="emailHelp"
-                        placeholder="Enter Your Price" />
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Login</button>
-            </form>
-</div>
+                <form action="/login" method="post" class="p-5">
+                    <div class="form-group">
+                        <label for="des">Email</label>
+                        <input name="email" type="email" class="form-control border border-dark" id="email"
+                            aria-describedby="emailHelp" placeholder="Enter Product Description" />
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Password</label>
+                        <input type="text" name="password" class="form-control border border-dark" id="password"
+                            aria-describedby="emailHelp" placeholder="Enter Your Price" />
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Login</button>
+                </form>
+    </div>

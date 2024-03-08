@@ -1,79 +1,60 @@
-<div class="container-fluid px-0 dashboard">
-    <div class="row flex-nowrap">
-        <div class="bg-dark col-md-2 min-vh-100  p-0">
-            <a href="/" class="d-flex text-decoration-none align-items-center text-white py-2 fs-5 ">
+<%- include('layout/header.ejs') %>
+
+    <h2 class="mb-4">
+        <%=user.name%>
+    </h2>
+    <div class="row">
+        <div class="bg-light col-md-3">
+            <a href="/dashboard"
+                class="d-flex text-decoration-none align-items-center text-black py-2 fs-5 bg-warning list-group-item">
                 <span class="fs-4 d-none d-sm-inline px-3">
                     <img src="<%= './uploads/'+user.profilePic %>" alt=""
                         style="height:50px; width:50px; border-radius: 50%;">
                     <%= user.name %>
                 </span>
             </a>
-
-            <ul class="nav nav-pills flex-column pt-2 text-center">
-                <li class="nav-item px-0 ">
-                    <a class="nav-link active" href="#">
-                        <i class="fa-solid fa-house"></i> <span class="fs-5 d-none d-sm-inline text-white">
-                            Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/logout">
-                        <i class="fa-solid fa-right-from-bracket "></i> <span
-                            class="fs-5 d-none d-sm-inline text-white">
-                            Logout</span>
-                    </a>
-                </li>
-            </ul>
-
-        </div>
-
-        <div class="bg-light col-md-2 min-vh-100  p-0 border border-end-1">
-            <a href="/" class="d-flex text-decoration-none align-items-center text-black py-2 fs-5 bg-warning ">
-                <span class="fs-4 d-none d-sm-inline px-3">
-                    <img src="<%= './uploads/'+user.profilePic %>" alt=""
-                        style="height:50px; width:50px; border-radius: 50%;">
-                    <%= user.name %>
-                </span>
-            </a>
-            <ul class="nav nav-pills flex-column pt-2 text-center">
+            <ul class="list-group">
                 <% if(users.length> 0 ) {
                     for(var i=0; i<users.length; i++) { %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">
-                                <span class="fs-5 d-none d-sm-inline text-black">
-                                    <img src="<%= './uploads/'+users[i].profilePic %>" alt=""
-                                        style="height:50px; width:50px; border-radius: 50%;">
-                                    <%= users[i].name %>
-                                </span>
-                            </a>
+                        <li class="list-group-item list-group-item-dark user-list cursor-pointer"
+                            style="cursor:pointer">
+                            <img src="<%= './uploads/'+users[i].profilePic %>" alt=""
+                                style="height:50px; width:50px; border-radius: 50%;">
+                            <%= users[i].name %>
                         </li>
                         <% } } %>
             </ul>
         </div>
 
-        <div class="bg-light col-md-8 min-vh-100  p-0 border border-end-1">
-            <a href="/" class="d-flex text-decoration-none align-items-center text-black py-2 fs-5 bg-warning ">
-                <span class="fs-4 d-none d-sm-inline px-3">
-                    <img src="<%= './uploads/STACODEV_LOGO_CIRCLE.png' %>"" alt=""
-                        style=" height:50px; width:50px; border-radius: 50%;">
-                    Chat Container
-                </span>
-            </a>
-            <div class="chatContainer">
-                <div class="chatBox">
-                    <div id="chatSection" class="chatContainer">
-                        <h1 class="heading">Chat Content</h1>
-                    </div>
+        <div class="col-md-9">
+            <h3 class="start-head">Click To Start Chat</h3>
 
+            <div class="chat-section" style="display: none;">
+                <div id="chat-container"
+                    style="background-color: lightblue; width: 100%; height: 700px; overflow: scroll;">
 
-                    <form action="" id="chatForm">
-                        <input type="text" name="chatMessage" placeholder="Please type your chat message"
-                            id="chatMessage">
-                        <input type="submit" class="btn btn-primary" id="sendMessage" value="Send Message">
-                    </form>
                 </div>
+
+                <form id="chat-form" action="">
+                    <input type="text" name="message" placeholder="Please Type Your Message" id="message"
+                        style="width: 86%;" class="border p-2" required>
+                    <input type="submit" class="btn btn-primary" value="Send Message">
+                </form>
             </div>
         </div>
-
     </div>
-</div>
+
+    <script src="http://localhost:3500/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://localhost:3500');
+
+
+        $(document).ready(function () {
+            $('.user-list').click(function () {
+                $('.start-head').hide();
+                $('.chat-section').show();
+            })
+
+        })
+    </script>
+    <%- include('layout/footer.ejs') %>

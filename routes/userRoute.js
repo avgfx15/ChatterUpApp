@@ -10,13 +10,13 @@ const userRouter = express.Router();
 const userControllers = new UserControllers();
 
 // @ GET Login Form
-userRouter.get('/', userLoggedOut, (req, res) => {
+userRouter.get('/login', userLoggedOut, (req, res) => {
     userControllers.getLoginFormController(req, res)
 })
 
 
 // + User Login 
-userRouter.post('/', (req, res, next) => {
+userRouter.post('/login', (req, res, next) => {
     userControllers.userLoginController(req, res, next)
 })
 

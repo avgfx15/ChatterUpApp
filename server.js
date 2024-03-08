@@ -4,7 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from "path";
-import expressEjsLayouts from "express-ejs-layouts";
+// import expressEjsLayouts from "express-ejs-layouts";
 import connectDB from "./db/db.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoute.js";
@@ -22,7 +22,7 @@ app.use(cookieParser())
 
 app.use(express.static("public"));
 
-app.use(expressEjsLayouts);
+// app.use(expressEjsLayouts);
 app.set('view engine', 'ejs');
 app.set("views", path.resolve("views"));
 
@@ -39,6 +39,16 @@ const io = new Server(server, {
 const port = process.env.PORT;
 
 app.use('/', userRouter)
+
+
+const userSpace = io.of('/userSpace');
+
+
+io.on('connection', (socket) => {
+
+    console.log('Connertion established');
+
+})
 
 // app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => {

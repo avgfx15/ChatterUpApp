@@ -5,7 +5,7 @@ import UserModel from "../models/userSchema.js";
 
 export default class UserControllers {
     // @ GET Login Form
-    getLoginFormController = async (req, res,) => {
+    getLoginFormController = async (req, res,) => {        
         try {
             res.render('login')
         } catch (error) {
@@ -30,8 +30,6 @@ export default class UserControllers {
                     const token = await jwt.sign({ user: userLoggedIn }, jwtSecret, { expiresIn: '1h' })
                     await userExists.tokens.push({ token });
                     await userExists.save();
-
-                    // res.cookie('jwt', token, { expiresIn: '1h' })
 
                     res.cookie('jwtToken', token, {
                         secure: true,
@@ -92,7 +90,7 @@ export default class UserControllers {
                 req = payload;
 
                 const loadUsers = await UserModel.find({ _id: { $nin: req.user._id } }).select('name email mobile profilePic')
-                console.log(req.user);
+
                 res.render('dashboard', { user: req.user, users: loadUsers })
             } else {
 
@@ -109,11 +107,11 @@ export default class UserControllers {
         try {
             res.clearCookie("jwtToken");
             res.writeHead(302, {
-                'Location': '/'
+                'Location': '/login'
             });
             return res.end();
         } catch (error) {
-            res.redirect('/', { message: error.message });
+            res.redirect('/login', { message: error.message });
         }
     }
 
